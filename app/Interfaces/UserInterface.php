@@ -6,8 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 interface UserInterface
 {
     public function getUsers();
-    public function createUser(Request $request);
+    public function createUser($data);
     public function getUser($id);
-    public function updateUser(Request $request, $id);
+    public function updateUser($data, $id);
     public function deleteUser($id);
 }

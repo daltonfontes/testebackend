@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Interfaces\CourseInterface;
+use App\Repositories\CourseRepository;
 
 class CourseController extends Controller
 {
     public $repository;
 
-    public function __construct(CourseInterface $repository)
+    public function __construct(CourseRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -20,7 +20,12 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $courses = $this->repository->getCourses();
+            return response()->json($courses);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -31,7 +36,16 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->all();
+            $course = $this->repository->createCourse($data);
+            return response()->json([
+                'message' => 'Course created successfully',
+                'data' => $course
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -42,7 +56,15 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $course = $this->repository->getCourse($id);
+            return response()->json([
+                'message' => 'Course found',
+                'data' => $course
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -54,7 +76,16 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+            $course = $this->repository->updateCourse($data, $id);
+            return response()->json([
+                'message' => 'Course updated successfully',
+                'data' => $course
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -65,6 +96,29 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $course = $this->repository->deleteCourse($id);
+            return response()->json([
+                'message' => 'Course deleted successfully',
+                'data' => $course
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
+
+    public function getCoursesByUser($id)
+    {
+        try {
+            $courses = $this->repository->getCourseByUser($id);
+            return response()->json([
+                'message' => 'Courses found',
+                'data' => $courses
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
+
+
 }

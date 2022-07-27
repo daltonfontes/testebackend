@@ -20,7 +20,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = $this->repository->getUsers();
+        return response()->json($users);
     }
 
     /**
@@ -31,7 +32,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+            $data = $request->all();
+            $user = $this->repository->createUser($data);
+            return response()->json([
+                'message' => 'User created successfully',
+                'data' => $user
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -42,7 +53,15 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $user = $this->repository->getUser($id);
+            return response()->json([
+                'message' => 'User found',
+                'data' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -54,7 +73,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+            $user = $this->repository->updateUser($id, $data);
+            return response()->json([
+                'message' => 'User updated successfully',
+                'data' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -65,6 +93,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $user = $this->repository->deleteUser($id);
+            return response()->json([
+                'message' => 'User deleted successfully',
+                'data' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 }

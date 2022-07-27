@@ -8,4 +8,5 @@ interface CourseInterface
     public function createCourse($data);
     public function updateCourse($id, $data);
     public function deleteCourse($id);
+    public function getCourseByUser($id);
 }
