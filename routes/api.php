@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ActivitieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,4 @@ use App\Http\Controllers\CourseController;
 Route::resource('users', UserController::class);
 Route::resource('courses', CourseController::class);
 Route::resource('activities', ActivitieController::class);
-Route::resource('activities', ActivitieController::class, ['except' => ['update', 'edit']]);
+Route::resource('files', FileController::class, ['except' => ['update']]);

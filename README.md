@@ -21,7 +21,6 @@ Criar uma API REST-FULL para o gerenciamento de uma loja que realiza venda de cu
 - [x] Listar cursos de forma individual
 - [x] Editar cursos
 - [x] Remover cursos
-- [x] Efutuar venda de um veiculo
 - [x] Cadastro de atividades
 - [x] Remover uma atividade
 - [x] Deletar uma atividade
@@ -33,6 +32,7 @@ Criar uma API REST-FULL para o gerenciamento de uma loja que realiza venda de cu
 
 - Laravel
 - MySQL
+- Postman
 
  ### Pré-requisitos
 
@@ -67,6 +67,11 @@ DB_PASSWORD=admin
 # Criar migrations
 $ php artisan migrate
 
+# Rotas
+- http://localhost:8000/api/users
+- http://localhost:8000/api/courses
+- http://localhost:8000/api/activities
+- http://localhost:8000/api/files
 
 # Iniciar aplicação
 $ php artisan serve
